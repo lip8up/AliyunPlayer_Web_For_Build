@@ -28,7 +28,7 @@ jobs:
       run: cd customComponents && npm install
 
     - name: Compile custom components
-      run: cd customComponents && npm run build_customize ./src/components/AliplayerDanmuComponent/export.js ./src/assets/scss/index.scss
+      run: cd customComponents && npm run build AliplayerDanmu
 
     - name: Save compiled file
       uses: actions/upload-artifact@v2
