@@ -1,0 +1,32 @@
+name: Build and download Aliplayer Components
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: cd customComponents && npm install
+
+    - name: Compile custom components
+      run: cd customComponents && npm run build_customize ./src/components/AliplayerDanmuComponent/export.js ./src/assets/scss/index.scss
+
+    - name: Save compiled file
+      uses: actions/upload-artifact@v2
+      with:
+        name: aliplayercomponents-1.0.1.min.js
+        path: customComponents/dist/aliplayer-components/aliplayercomponents-1.0.1.min.js
+
+    - name: Download compiled file
+      uses: actions/download-artifact@v2
+      with:
+        name: aliplayercomponents-1.0.1.min.js
+        path: dist
